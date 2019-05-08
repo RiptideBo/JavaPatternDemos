@@ -17,14 +17,14 @@ package JavaPatternDemos;
 public class BridgeTest {
 
     public static void main(String[] args) {
-        Coffee small_sugar_cf = new SmallCoffee(10,new Sugar());
-        Coffee large_black_sugar_cf = new LargeCoffee(15, new BlackSugar());
+        Coffee small_sugar = new SmallCoffee(10,new Sugar());
+        Coffee large_black_sugar = new LargeCoffee(15, new BlackSugar());
 
-        small_sugar_cf.addAdditions();
-        large_black_sugar_cf.addAdditions();
+        small_sugar.addAdditions();
+        large_black_sugar.addAdditions();
 
-        small_sugar_cf.sell_coffee();
-        large_black_sugar_cf.sell_coffee();
+        small_sugar.sellCoffee();
+        large_black_sugar.sellCoffee();
     }
 
 
@@ -34,13 +34,13 @@ public class BridgeTest {
 
 abstract class Coffee{
     protected int price;
-    protected Additions added;
+    protected Additions addition;
 
-    public Coffee(int price_,Additions added_){
-        price = price_;
-        added = added_;
+    public Coffee(int mPrice,Additions mAddition){
+        price = mPrice;
+        addition = mAddition;
     }
-    public void sell_coffee(){
+    public void sellCoffee(){
         System.out.println(this.price);
     };
 
@@ -48,33 +48,33 @@ abstract class Coffee{
 }
 
 class LargeCoffee extends Coffee{
-    public LargeCoffee(int price_, Additions added_) {
-        super(price_, added_);
+    public LargeCoffee(int mPrice, Additions mAddition) {
+        super(mPrice, mAddition);
     }
     @Override
     public void addAdditions() {
         // 大杯咖啡加 2倍的钱
-        added.add_something();
-        this.price +=  (2 * added.getPrice());
+        addition.adding();
+        this.price +=  (2 * addition.getPrice());
     }
 }
 
 class SmallCoffee extends Coffee{
 
-    public SmallCoffee(int price_, Additions added_) {
-        super(price_, added_);
+    public SmallCoffee(int mPrice, Additions mAddition) {
+        super(mPrice, mAddition);
     }
 
     @Override
     public void addAdditions() {
-        added.add_something();
-        this.price += added.getPrice();
+        addition.adding();
+        this.price += addition.getPrice();
     }
 }
 
 
 interface Additions{
-    void add_something();
+    void adding();
     int getPrice();
 }
 
@@ -82,7 +82,7 @@ interface Additions{
 class Sugar implements Additions{
 
     @Override
-    public void add_something() {
+    public void adding() {
         System.out.println("add sugar");
     }
 
@@ -95,7 +95,7 @@ class Sugar implements Additions{
 class BlackSugar implements Additions{
 
     @Override
-    public void add_something() {
+    public void adding() {
         System.out.println("add black Sugar");
     }
     @Override

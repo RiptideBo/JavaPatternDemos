@@ -8,17 +8,18 @@ package JavaPatternDemos;
  */
 public class FactoryTest {
     public static void main(String[] args) {
-        AbsFactory dalian = new DalianFactory();
-        AbsFactory beijing = new BeijingFactory();
+        BaseFactory dalian = new DalianFactory();
+        BaseFactory beijing = new BeijingFactory();
 
-        Eatable eat_dlian = dalian.createEat();
-        Drinkable drink_dalian = dalian.createDrink();
+        Eatable dalianEating = dalian.createEat();
+        Drinkable dalianDrinking = dalian.createDrink();
 
-        Eatable eat_beijing = beijing.createEat();
+        Eatable beijingEating = beijing.createEat();
 
-        eat_dlian.eat();
-        eat_beijing.eat();
+        dalianEating.eat();
+        beijingEating.eat();
 
+        dalianDrinking.drink();
     }
 }
 
@@ -53,7 +54,7 @@ class Cola implements Drinkable{
     }
 }
 
-abstract class AbsFactory{
+abstract class BaseFactory {
     public abstract Eatable createEat();
     public abstract Drinkable createDrink();
 }
@@ -62,7 +63,7 @@ abstract class AbsFactory{
 /**
  * 大连工厂产苹果
  */
-class DalianFactory extends AbsFactory{
+class DalianFactory extends BaseFactory {
     @Override
     public Eatable createEat() {
         return new Apple();
@@ -77,7 +78,7 @@ class DalianFactory extends AbsFactory{
 /**
  * 北京工厂生产香蕉
  */
-class BeijingFactory extends AbsFactory{
+class BeijingFactory extends BaseFactory {
 
     @Override
     public Eatable createEat() {

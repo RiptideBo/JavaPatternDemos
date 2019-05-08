@@ -8,9 +8,9 @@ package JavaPatternDemos;
  */
 public class BuilderTest {
     public static void main(String[] args) {
-        HouseBuilding bder = new Builder();  // 只需要换施工队就行
-        BuildManager bmanager = new BuildManager(bder);
-        House hs = bmanager.make();
+        HouseBuilding oneBuilder = new Builder();  // 只需要换施工队就行
+        BuildManager buildMgr = new BuildManager(oneBuilder);
+        House hs = buildMgr.make();
     }
 }
 
@@ -28,7 +28,7 @@ class Roof{
 
 class Floor{
     Floor(){}
-    Floor(String mdesc){this.desc = mdesc;}
+    Floor(String desc_){this.desc = desc_;}
 
     private String desc = "floor";
 
@@ -42,19 +42,19 @@ class House{
     private Roof mRoof;
     private Floor mFloor;
 
-    public void setmRoof(Roof mRoof) {
+    public void setRoof(Roof mRoof) {
         this.mRoof = mRoof;
     }
 
-    public void setmFloor(Floor mFloor) {
+    public void setFloor(Floor mFloor) {
         this.mFloor = mFloor;
     }
 
-    public Roof getmRoof() {
+    public Roof getRoof() {
         return mRoof;
     }
 
-    public Floor getmFloor() {
+    public Floor getFloor() {
         return mFloor;
     }
 
@@ -74,13 +74,13 @@ class Builder implements HouseBuilding{
     @Override
     public void build_floor() {
         Floor fl = new Floor();
-        mHouse.setmFloor(fl);
+        mHouse.setFloor(fl);
     }
 
     @Override
     public void build_roof() {
         Roof rf = new Roof();
-        mHouse.setmRoof(rf);
+        mHouse.setRoof(rf);
     }
 
     public House build(){
@@ -89,16 +89,16 @@ class Builder implements HouseBuilding{
 }
 
 class BuildManager {
-    private HouseBuilding bd;
-    BuildManager(HouseBuilding mbd){
-        bd = mbd;
+    private HouseBuilding mBuilder;
+    BuildManager(HouseBuilding builder){
+        mBuilder = builder;
         // 在这里控制逻辑
     }
 
     public House make(){
-        bd.build_floor();
-        bd.build_roof();
-        return bd.build();
+        mBuilder.build_floor();
+        mBuilder.build_roof();
+        return mBuilder.build();
     }
 
 }

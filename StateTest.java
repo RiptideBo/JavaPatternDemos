@@ -12,9 +12,7 @@ package JavaPatternDemos;
 
 public class StateTest {
     public static void main(String[] args) {
-
         Context cont = new Context(new StateBlue());
-
         for (int i = 0; i <5 ; i++) {
             cont.operate();
         }

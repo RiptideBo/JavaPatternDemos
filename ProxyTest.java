@@ -10,24 +10,24 @@ package JavaPatternDemos;
 public class ProxyTest {
     public static void main(String[] args) {
 
-        AppleP apple1 = new AppleP();
-        AppleProxy app = new AppleProxy(apple1);
-        app.eat();
-        app.cook();
+        AppleProduct apple_1 = new AppleProduct();
+        AppleProxy oneProxy = new AppleProxy(apple_1);
+        oneProxy.eat();
+        oneProxy.cook();
 
-        AppleP apple2 = new AppleP();
-        ProductP appledp = new ProductDecoratorClean(new ProductDecoratorLogger(apple2));
-        appledp.eat();
+        AppleProduct apple_2 = new AppleProduct();
+        MyProduct oneDecorator = new ProductDecoratorClean(new ProductDecoratorLogger(apple_2));
+        oneDecorator.eat();
     }
 }
 
 
 
-interface ProductP{
+interface MyProduct {
     void eat();
 }
 
-class AppleP implements ProductP{
+class AppleProduct implements MyProduct {
     @Override
     public void eat() {
         System.out.println("eat apple");
@@ -36,11 +36,11 @@ class AppleP implements ProductP{
 
 
 
-class AppleProxy implements ProductP{
-    private AppleP prod;
+class AppleProxy implements MyProduct {
+    private AppleProduct prod;
 
-    public AppleProxy(AppleP oneapple){
-        prod = oneapple;
+    public AppleProxy(AppleProduct mApple){
+        prod = mApple;
     }
 
     @Override
@@ -62,11 +62,11 @@ class AppleProxy implements ProductP{
 //          下面是装饰器
 // -----------------------------------
 
-class ProductDecoratorLogger implements ProductP{
-    private ProductP aProd;
+class ProductDecoratorLogger implements MyProduct {
+    private MyProduct aProd;
 
-    public ProductDecoratorLogger(ProductP aprod_){
-        aProd = aprod_;
+    public ProductDecoratorLogger(MyProduct mProduct){
+        aProd = mProduct;
     }
 
     @Override
@@ -76,11 +76,11 @@ class ProductDecoratorLogger implements ProductP{
     }
 }
 
-class ProductDecoratorClean implements ProductP{
-    private ProductP aProd;
+class ProductDecoratorClean implements MyProduct {
+    private MyProduct aProd;
 
-    public ProductDecoratorClean(ProductP aprod_){
-        aProd = aprod_;
+    public ProductDecoratorClean(MyProduct mProduct){
+        aProd = mProduct;
     }
 
     @Override

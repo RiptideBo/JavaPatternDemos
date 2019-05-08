@@ -22,7 +22,7 @@ public class ObserverTest {
 
 abstract class MyObserver{
     public abstract void update();
-    public abstract void update(MyObservable myobserverable);
+    public abstract void update(MyObservable myobservable_);
 
 }
 
@@ -35,14 +35,14 @@ abstract class MyObservable{
     public void removeObserver(MyObserver rmOb){
         observers.remove(rmOb);
     }
-    public abstract void notifyObs();
+    public abstract void notifyObservers();
 
 }
 
 /**
  * 黄金用户
  */
-class GoldOb extends MyObserver{
+class GoldenObserver extends MyObserver{
     private String name;
     @Override
     public void update() {
@@ -57,7 +57,7 @@ class GoldOb extends MyObserver{
 /**
  * 白银用户
  */
-class SilverOb extends MyObserver{
+class SilverObserver extends MyObserver{
     private String name;
     @Override
     public void update() {
@@ -70,17 +70,14 @@ class SilverOb extends MyObserver{
 }
 
 
-
-
 class ObserverableUser extends MyObservable{
     private String name;
 
     @Override
-    public void notifyObs() {
+    public void notifyObservers() {
         // 灵活控制不同权限.通知内容等
-
         for(MyObserver each: this.observers){
-            if(each instanceof GoldOb){
+            if(each instanceof GoldenObserver){
                 each.update(this);
             }
             else{

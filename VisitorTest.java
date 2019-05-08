@@ -31,8 +31,8 @@ public class VisitorTest {
 
 interface MyVisitor{
     // 所有的实际操作应该在  访问者中实现，避免对被访问者的类进行修改
-    void visit(EastVisited ev);
-    void visit(WestVisited wv);
+    void visit(EastVisited east);
+    void visit(WestVisited west);
 }
 
 interface Visited{
@@ -41,12 +41,12 @@ interface Visited{
 
 class Visitorimpl implements MyVisitor{
     @Override
-    public void visit(EastVisited ev) {
+    public void visit(EastVisited east) {
         System.out.println("visit East ");
     }
 
     @Override
-    public void visit(WestVisited wv) {
+    public void visit(WestVisited west) {
         System.out.println("visit west ");
     }
 }
@@ -54,12 +54,12 @@ class Visitorimpl implements MyVisitor{
 class GoldVisitor implements MyVisitor{
 
     @Override
-    public void visit(EastVisited ev) {
+    public void visit(EastVisited east) {
         System.out.println("Badass visited east");
     }
 
     @Override
-    public void visit(WestVisited wv) {
+    public void visit(WestVisited west) {
         System.out.println("Badass visited west");
     }
 }
@@ -82,17 +82,17 @@ class WestVisited implements Visited{
 }
 
 class AllVisited implements Visited{
-    private ArrayList<Visited> allparts;
+    private ArrayList<Visited> allComponents;
 
     public AllVisited(){
-        allparts = new ArrayList<Visited>(10);
-        allparts.add(new EastVisited());
-        allparts.add(new WestVisited());
+        allComponents = new ArrayList<Visited>(10);
+        allComponents.add(new EastVisited());
+        allComponents.add(new WestVisited());
     }
 
     @Override
     public void accept(MyVisitor visitor) {
-        for(Visited each : allparts)
+        for(Visited each : allComponents)
         {
             each.accept(visitor);
         }
